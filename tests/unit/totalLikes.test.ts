@@ -1,5 +1,5 @@
-import { totalLikes } from "../src/utils/list_helper";
-import { IBlog } from "../src/interfaces/blogInterfaces";
+import { totalLikes } from "../../src/utils/list_helper";
+import { IBlog } from "../../src/interfaces/blogInterfaces";
 
 describe("tests for function totalLikes", () => {
   test("when the list is empty", () => {

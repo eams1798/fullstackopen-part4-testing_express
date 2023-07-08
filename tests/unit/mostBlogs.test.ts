@@ -1,5 +1,5 @@
-import { mostBlogs } from "../src/utils/list_helper";
-import { IBlog } from "../src/interfaces/blogInterfaces";
+import { mostBlogs } from "../../src/utils/list_helper";
+import { IBlog } from "../../src/interfaces/blogInterfaces";
 
 import { describe, test, expect } from "@jest/globals";
 

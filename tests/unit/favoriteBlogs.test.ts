@@ -1,5 +1,5 @@
-import { favoriteBlogs } from "../src/utils/list_helper";
-import { IBlog } from "../src/interfaces/blogInterfaces";
+import { favoriteBlogs } from "../../src/utils/list_helper";
+import { IBlog } from "../../src/interfaces/blogInterfaces";
 
 describe("tests for function favoriteBlogs", () => {
   test("When the list is empty", () => {
