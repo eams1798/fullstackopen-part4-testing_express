@@ -12,10 +12,15 @@ describe('Testing the api', () => {
     await Blog.insertMany(helper.initialBlogs);
   });
 
-  test('GET should return the correct quantity of blogs', async () => {
-    const response = await api.get('/');
+  test('/api/blogs must run correctly and return blogs as a json', async () => {
+    const response = await api.get('/api/blogs');
     expect(response.status).toBe(200);
-    expect(response.body.length).toBe(helper.initialBlogs.length);
+    expect(response.headers['content-type']).toMatch("application/json");
+  })
+
+  test('/api/blogs should return the correct quantity of blogs', async () => {
+    const response = await api.get('/api/blogs');
+    expect(response.body).toHaveLength(helper.initialBlogs.length);
   });
 
   afterAll(async () => {
