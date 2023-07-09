@@ -35,18 +35,18 @@ const initialBlogs: IBlog[] = [
   ];
 
 const nonExistingId = async (): Promise<string> => {
-  const blog = new Blog({ content: 'willremovethissoon', date: new Date() })
-  await blog.save()
-  await blog.deleteOne()
+  const blog = new Blog({ title: 'willremovethissoon', author: 'Not existing', url: "www.e404.com", likes: 0 });
+  await blog.save();
+  await blog.deleteOne();
 
-  return blog._id.toString()
-}
+  return blog._id.toString();
+};
 
 const blogsInDb = async (): Promise<IBlog[]> => {
-  const blogs = await Blog.find({})
-  return blogs.map(blog => blog.toJSON())
-}
+  const blogs = await Blog.find({});
+  return blogs.map(blog => blog.toJSON());
+};
 
 export default {
   initialBlogs, nonExistingId, blogsInDb
-}
+};
