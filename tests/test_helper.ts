@@ -1,5 +1,6 @@
 import { IBlog } from '../src/interfaces/blogInterfaces';
 import Blog from '../src/models/blog';
+import User from '../src/models/user';
 
 const initialBlogs: IBlog[] = [
     {
@@ -47,6 +48,11 @@ const blogsInDb = async (): Promise<IBlog[]> => {
   return blogs.map(blog => blog.toJSON());
 };
 
+const usersInDb = async () => {
+  const users = await User.find({})
+  return users.map(u => u.toJSON())
+}
+
 export default {
-  initialBlogs, nonExistingId, blogsInDb
+  initialBlogs, nonExistingId, blogsInDb, usersInDb
 };

@@ -2,11 +2,14 @@ import express from "express";
 import { Request, Response, NextFunction } from "express";
 import Blog from "../models/blog";
 import "express-async-errors";
+import User from "../models/user";
 
 const blogRouter = express.Router();
 
 blogRouter.get('/', async (request: Request, response: Response) => {
-  const blogs = await Blog.find({});
+  const blogs = await Blog
+  .find({})
+  .populate('user', { username: 1, name: 1 });
   response.json(blogs.map(blog => blog.toJSON()));
 });
 
@@ -22,9 +25,18 @@ blogRouter.get('/:id', async (request: Request, response: Response, next: NextFu
 blogRouter.post('/', async (request: Request, response: Response) => {
   const body = request.body;
 
+  
   if (!body.title || !body.url) {
     return response.status(400).json({ 
       error: 'title or url missing' 
+    });
+  }
+  
+  const user = await User.findById(body.userId);
+
+  if (!user) {
+    return response.status(404).json({ 
+      error: 'user not found' 
     });
   }
 
@@ -32,10 +44,13 @@ blogRouter.post('/', async (request: Request, response: Response) => {
     title: body.title,
     author: body.author,
     url: body.url,
-    likes: body.likes || 0
+    likes: body.likes || 0,
+    user: user._id
   });
 
   const savedBlog = await blog.save();
+  user.blogs = user.blogs.concat(savedBlog._id); //highlight-line
+  await user.save();  //highlight-line
   response.status(201).json(savedBlog.toJSON());
 });
 

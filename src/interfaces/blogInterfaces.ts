@@ -1,9 +1,12 @@
+import { Types } from "mongoose";
+
 export interface IBlog {
   id?: string,
   title: string,
-  author : string,
+  author: string,
   url: string,
-  likes: number
+  likes: number,
+  user: Types.ObjectId
 }
 
 export interface IFavBlog {

@@ -1,7 +1,8 @@
 import { MONGODB_URI } from "./utils/config";
 import express from "express";
 import cors from "cors";
-import blogRouter from "./controllers/blog";
+import blogsRouter from "./controllers/blogs";
+import usersRouter from "./controllers/users";
 import middleware from "./utils/middleware";
 import logger from "./utils/logger";
 import mongoose from "mongoose";
@@ -18,7 +19,8 @@ mongoose.connect(MONGODB_URI)
     app.use(express.static('build'));
     app.use(express.json());
     app.use(middleware.requestLogger);
-    app.use('/api/blogs', blogRouter);
+    app.use('/api/blogs', blogsRouter);
+    app.use('/api/users', usersRouter);
     app.use(middleware.unknownEndpoint);
     app.use(middleware.errorHandler);
   }).catch ((error) => {
