@@ -5,5 +5,5 @@ export interface IUser {
   name: string,
   passwordHash: string,
   id?: string,
-  blogs: Types.ObjectId[]
+  blogs: Types.ObjectId[] | string[]
 }

@@ -3,26 +3,26 @@ import uniqueValidator from "mongoose-unique-validator";
 import { IBlog } from "../interfaces/blogInterfaces";
 
 const blogSchema = new Schema<IBlog>({
-  title: {type: String, required: true, unique: true},
-  author: {type: String, required: true},
-  url : {type: String, required: true, unique: true},
-  likes: {type: Number, required: true},
+  title: { type: String, required: true, unique: true },
+  author: { type: String, required: true },
+  url : { type: String, required: true, unique: true },
+  likes: { type: Number, required: true },
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   }
 });
 
 blogSchema.plugin(uniqueValidator);
 
-blogSchema.set('toJSON', {
+blogSchema.set("toJSON", {
   transform: (_doc_, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
   }
-})
+});
 
-const Blog = model<IBlog>('Blog', blogSchema);
+const Blog = model<IBlog>("Blog", blogSchema);
 
 export default Blog;

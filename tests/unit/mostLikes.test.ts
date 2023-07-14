@@ -15,12 +15,14 @@ describe("tests for function mostLikes", () => {
         author: "Author 1",
         url: "http://blog1.com",
         likes: 5,
+        user: "notested"
       },
       {
         title: "Blog 2",
         author: "Author 1",
         url: "http://blog2.com",
         likes: 10,
+        user: "notested"
       },
     ];
     const result = mostLikes(singleAuthorBlogList);
@@ -34,18 +36,21 @@ describe("tests for function mostLikes", () => {
         author: "Author 1",
         url: "http://blog1.com",
         likes: 5,
+        user: "notested"
       },
       {
         title: "Blog 2",
         author: "Author 3",
         url: "http://blog2.com",
         likes: 10,
+        user: "notested"
       },
       {
         title: "Blog 3",
         author: "Author 2",
         url: "http://blog3.com",
         likes: 20,
+        user: "notested"
       },
     ];
     const result = mostLikes(multipleAuthorBlogList);
@@ -59,24 +64,28 @@ describe("tests for function mostLikes", () => {
         author: "Author 1",
         url: "http://blog1.com",
         likes: 7,
+        user: "notested"
       },
       {
         title: "Blog 3",
         author: "Author 2",
         url: "http://blog3.com",
         likes: 5,
+        user: "notested"
       },
       {
         title: "Blog 2",
         author: "Author 2",
         url: "http://blog2.com",
         likes: 5,
+        user: "notested"
       },
       {
         title: "Blog 4",
         author: "Author 1",
         url: "http://blog4.com",
         likes: 3,
+        user: "notested"
       },
     ];
     const result = mostLikes(sameLikesCountAuthorList);
@@ -90,30 +99,35 @@ describe("tests for function mostLikes", () => {
         author: "Author 1",
         url: "http://blog1.com",
         likes: 7,
+        user: "notested"
       },
       {
         title: "Blog 3",
         author: "Author 2",
         url: "http://blog3.com",
         likes: 5,
+        user: "notested"
       },
       {
         title: "Blog 2",
         author: "Author 2",
         url: "http://blog2.com",
         likes: 5,
+        user: "notested"
       },
       {
         title: "Blog 4",
         author: "Author 1",
         url: "http://blog4.com",
         likes: 3,
+        user: "notested"
       },
       {
         title: "Blog 5",
         author: "Author 3",
         url: "http://blog5.com",
         likes: 1,
+        user: "notested"
       }
     ];
     const result = mostLikes(someSameLikesAuthorList);

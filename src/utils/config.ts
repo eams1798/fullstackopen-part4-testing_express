@@ -3,12 +3,13 @@ dotenv.config();
 
 let MONGODB_URI: string;
 
-if (process.env.NODE_ENV === 'test') {
-      MONGODB_URI = process.env.TEST_MONGODB_URI || '';
+if (process.env.NODE_ENV === "test") {
+  MONGODB_URI = process.env.TEST_MONGODB_URI || "";
 } else {
-    MONGODB_URI = process.env.MONGODB_URI || '';
+  MONGODB_URI = process.env.MONGODB_URI || "";
 }
 
-const PORT = process.env.PORT || '';
+const PORT = process.env.PORT || "";
+const SECRET = process.env.SECRET || "";
 
-export { MONGODB_URI, PORT };
+export { MONGODB_URI, PORT, SECRET };

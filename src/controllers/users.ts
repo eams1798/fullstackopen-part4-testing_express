@@ -1,35 +1,35 @@
 import bcrypt from "bcrypt";
 import express from "express";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import User from "../models/user";
 import "express-async-errors";
 
 const usersRouter = express.Router();
 
-usersRouter.get('/', async (request, response) => {
-  const users = await User  // highlight-line
+usersRouter.get("/", async (req: Request, res: Response) => {
+  const users = await User
     .find({})
-    .populate('blogs', {
+    .populate("blogs", {
       title: 1,
       author: 1,
       url: 1,
       likes: 1
-    }) // highlight-line
+    });
 
-  response.json(users)
-})
+  res.json(users);
+});
 
-usersRouter.post('/', async (req: Request, res: Response) => {
+usersRouter.post("/", async (req: Request, res: Response) => {
   const body = req.body;
 
   if (!body.username || !body.password) {
-      return res.status(400).json({ 
-        error: 'missing username or password' 
-      });
+    return res.status(400).json({
+      error: "missing username or password"
+    });
   } else if (body.password.length < 3) {
-      return res.status(400).json({ 
-          error: 'weak password' 
-      });
+    return res.status(400).json({
+      error: "weak password"
+    });
   }
 
   const saltRounds = 10;
@@ -44,6 +44,6 @@ usersRouter.post('/', async (req: Request, res: Response) => {
   const savedUser = await user.save();
 
   res.json(savedUser);
-})
+});
 
 export default usersRouter;

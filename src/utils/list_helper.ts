@@ -1,4 +1,4 @@
-import { IBlog, IFavBlog, IMostBlogs, IMostLikes} from "../interfaces/blogInterfaces";
+import { IBlog, IFavBlog, IMostBlogs, IMostLikes } from "../interfaces/blogInterfaces";
 
 const dummy = ( blogs: IBlog [] ): number => {
   return 1;
@@ -15,41 +15,41 @@ const totalLikes = ( blogs: IBlog[] ): number => {
 const favoriteBlogs = ( blogs: IBlog[] ): IFavBlog[] => {
   const reducer = ( maxN: number, blog: IBlog ): number => {
     return Math.max( maxN, blog.likes );
-  }
+  };
   const maxLikes = blogs.reduce( reducer, 0 );
 
-  let favBlogs: IFavBlog[] = blogs
+  const favBlogs: IFavBlog[] = blogs
     .filter((blog) => blog.likes === maxLikes)
     .map(({ title, author, likes }) => ({ title, author, likes }));
 
   return favBlogs;
-}; 
+};
 
 const mostBlogs = ( blogs: IBlog [] ): IMostBlogs[] => {
-  let blogsByAuthor: IMostBlogs[] = [];
+  const blogsByAuthor: IMostBlogs[] = [];
 
   blogs.forEach( blog => {
     if ( blogsByAuthor.some(({ author }) => author === blog.author )) {
-      const authorIndex = blogsByAuthor.findIndex (({ author }) => author === blog.author ); 
-      blogsByAuthor[ authorIndex ].blogs++; 
+      const authorIndex = blogsByAuthor.findIndex (({ author }) => author === blog.author );
+      blogsByAuthor[ authorIndex ].blogs++;
     } else {
       blogsByAuthor.push({
         author : blog.author,
         blogs : 1
       }) ;
     }
-  }) ; // end of For Each 
+  }) ; // end of For Each
 
   const reducer = ( maxN: number, author : IMostBlogs ): number => {
     return Math.max( maxN , author.blogs );
-  }; 
-  const nMaxBlogs = blogsByAuthor.reduce( reducer, 0 ); 
+  };
+  const nMaxBlogs = blogsByAuthor.reduce( reducer, 0 );
 
   return blogsByAuthor.filter (( author ) => ( author.blogs === nMaxBlogs )) ;
-} ; 
+} ;
 
 const mostLikes = ( blogs : IBlog[] ): IMostLikes[] => {
-  let likesByAuthor: IMostLikes[] = [];
+  const likesByAuthor: IMostLikes[] = [];
 
   blogs.forEach(blog => {
     if ( likesByAuthor.some(({ author }) => author === blog.author )) {
@@ -61,13 +61,13 @@ const mostLikes = ( blogs : IBlog[] ): IMostLikes[] => {
         likes: blog.likes
       });
     }
-  }); // end of For Each 
+  }); // end of For Each
 
   const reducer = ( maxN: number , author: IMostLikes ): number => {
     return Math.max ( maxN, author.likes );
   };
   const nMaxLikes = likesByAuthor.reduce( reducer, 0 );
-  
+
   return likesByAuthor.filter( author => author.likes === nMaxLikes );
 };
 

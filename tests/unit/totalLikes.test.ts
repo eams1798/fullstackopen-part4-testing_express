@@ -15,6 +15,7 @@ describe("tests for function totalLikes", () => {
         author: "Author 1",
         url: "http://blog1.com",
         likes: 5,
+        user: "notested"
       },
     ];
     const result = totalLikes(singleBlogList);
@@ -28,18 +29,21 @@ describe("tests for function totalLikes", () => {
         author: "Author 1",
         url: "http://blog1.com",
         likes: 5,
+        user: "notested"
       },
       {
         title: "Blog 2",
         author: "Author 2",
         url: "http://blog2.com",
         likes: 10,
+        user: "notested"
       },
       {
         title: "Blog 3",
         author: "Author 3",
         url: "http://blog3.com",
         likes: 15,
+        user: "notested"
       },
     ];
     const result = totalLikes(multipleBlogList);
@@ -53,18 +57,21 @@ describe("tests for function totalLikes", () => {
         author: "Author 1",
         url: "http://blog1.com",
         likes: 0,
+        user: "notested"
       },
       {
         title: "Blog 2",
         author: "Author 2",
         url: "http://blog2.com",
         likes: 10,
+        user: "notested"
       },
       {
         title: "Blog 3",
         author: "Author 3",
         url: "http://blog3.com",
         likes: 0,
+        user: "notested"
       },
     ];
     const result = totalLikes(zeroLikesBlogList);
