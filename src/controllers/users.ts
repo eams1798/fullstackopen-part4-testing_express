@@ -24,11 +24,11 @@ usersRouter.post("/", async (req: Request, res: Response) => {
 
   if (!body.username || !body.password) {
     return res.status(400).json({
-      error: "missing username or password"
+      error: "Missing username or password"
     });
   } else if (body.password.length < 3) {
     return res.status(400).json({
-      error: "weak password"
+      error: "Weak password"
     });
   }
 

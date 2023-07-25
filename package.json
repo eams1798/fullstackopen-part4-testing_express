@@ -37,6 +37,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.44.0",
     "jest": "^29.6.0",
+    "ngrok": "^5.0.0-beta.2",
     "nodemon": "^2.0.22",
     "supertest": "^6.3.3",
     "ts-jest": "^29.1.1"

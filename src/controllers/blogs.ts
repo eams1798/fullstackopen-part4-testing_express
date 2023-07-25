@@ -42,7 +42,7 @@ blogRouter.post("/", middleware.userExtractor, async (request: Request, response
 
   const blog = new Blog({
     title: body.title,
-    author: user.name,
+    author: body.author? body.author: user.name,
     url: body.url,
     likes: body.likes || 0,
     user: user._id
@@ -60,15 +60,15 @@ blogRouter.put("/:id", middleware.userExtractor, async (request: Request, respon
 
   const blog = await Blog.findById(request.params.id);
   if (!blog) {
-    return response.status(404).json({ error: "blog not found" });
+    return response.status(404).json({ error: "Blog not found" });
   }
   if (!user) {
     return response.status(404).json({
-      error: "user not found"
+      error: "User not found"
     });
   }
   if (blog.user.toString() !== user.id?.toString()) {
-    return response.status(403).json({ error: "only the creator can edit the blog" });
+    return response.status(403).json({ error: "Only the creator can edit the blog" });
   }
 
   const updatedFields = {
@@ -91,13 +91,13 @@ blogRouter.delete("/:id", middleware.userExtractor, async (request: Request, res
 
   const blog = await Blog.findById(request.params.id);
   if (!blog) {
-    return response.status(404).json({ error: "blog not found" });
+    return response.status(404).json({ error: "Blog not found" });
   }
   if (!user) {
-    return response.status(404).json({ error: "user not found" });
+    return response.status(404).json({ error: "User not found" });
   }
   if (blog.user.toString() !== user.id?.toString()) {
-    return response.status(403).json({ error: "only the creator can delete the blog" });
+    return response.status(403).json({ error: "Only the creator can delete the blog" });
   }
 
   const result = await blog.deleteOne();
