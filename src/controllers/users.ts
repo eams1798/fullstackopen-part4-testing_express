@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import express from "express";
+import express, { NextFunction } from "express";
 import { Request, Response } from "express";
 import User from "../models/user";
 import "express-async-errors";
@@ -17,6 +17,15 @@ usersRouter.get("/", async (req: Request, res: Response) => {
     });
 
   res.json(users);
+});
+
+usersRouter.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    res.json(user.toJSON());
+  } else {
+    next();
+  }
 });
 
 usersRouter.post("/", async (req: Request, res: Response) => {

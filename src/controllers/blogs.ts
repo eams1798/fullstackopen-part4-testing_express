@@ -16,7 +16,9 @@ blogRouter.get("/", async (request: Request, response: Response) => {
 });
 
 blogRouter.get("/:id", async (request: Request, response: Response, next: NextFunction) => {
-  const blog = await Blog.findById(request.params.id);
+  const blog = await Blog
+    .findById(request.params.id)
+    .populate("user", { username: 1, name: 1 });
   if (blog) {
     response.json(blog.toJSON());
   } else {
@@ -51,13 +53,13 @@ blogRouter.post("/", middleware.userExtractor, async (request: Request, response
   const savedBlog = await blog.save();
   user.blogs = user.blogs.concat(savedBlog.id);
   await user.save();
-  response.status(201).json(savedBlog.toJSON());
+  const returnedBlog = await savedBlog.populate("user", { username: 1, name: 1 });
+  response.status(201).json(returnedBlog.toJSON());
 });
 
 blogRouter.put("/:id", middleware.userExtractor, async (request: Request, response: Response, next: NextFunction) => {
   const body = request.body;
   const user = request.user;
-
   const blog = await Blog.findById(request.params.id);
   if (!blog) {
     return response.status(404).json({ error: "Blog not found" });
@@ -67,8 +69,8 @@ blogRouter.put("/:id", middleware.userExtractor, async (request: Request, respon
       error: "User not found"
     });
   }
-  if (blog.user.toString() !== user.id?.toString()) {
-    return response.status(403).json({ error: "Only the creator can edit the blog" });
+  if (blog.user.toString() !== user.id?.toString() && !(Object.keys(body).includes("likes"))) {
+    return response.status(403).json({ error : "Only the creator can edit the blog" });
   }
 
   const updatedFields = {
@@ -80,7 +82,8 @@ blogRouter.put("/:id", middleware.userExtractor, async (request: Request, respon
 
   const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, updatedFields, { new: true });
   if (updatedBlog) {
-    response.json(updatedBlog.toJSON());
+    const returnedBlog = await updatedBlog.populate("user", { username: 1, name: 1 });
+    response.json(returnedBlog.toJSON());
   } else {
     next();
   }
