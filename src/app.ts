@@ -4,6 +4,7 @@ import cors from "cors";
 import blogsRouter from "./controllers/blogs";
 import usersRouter from "./controllers/users";
 import loginRouter from "./controllers/login";
+import testingRouter from "./controllers/testing";
 import middleware from "./utils/middleware";
 import logger from "./utils/logger";
 import mongoose from "mongoose";
@@ -26,6 +27,9 @@ const startApp = async () => {
     app.use("/api/login", loginRouter);
     app.use("/api/users", usersRouter);
     app.use("/api/blogs", blogsRouter);
+    if (process.env.NODE_ENV === "test") {
+      app.use("/api/testing", testingRouter);
+    }
     app.use(middleware.unknownEndpoint);
     app.use(middleware.errorHandler);
 
