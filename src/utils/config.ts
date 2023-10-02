@@ -10,6 +10,5 @@ if (process.env.NODE_ENV === "test") {
 }
 
 const PORT = process.env.PORT || "";
-const SECRET = process.env.SECRET || "";
 
-export { MONGODB_URI, PORT, SECRET };
+export { MONGODB_URI, PORT };

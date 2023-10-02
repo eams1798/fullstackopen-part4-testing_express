@@ -3,13 +3,11 @@ import jwt from "jsonwebtoken";
 import { Response, NextFunction } from "express";
 import { Request, UserDocument } from "../interfaces/expressHelper";
 import User from "../models/user";
-import { SECRET } from "./config";
 
 
 const requestLogger = (request: Request, response: Response, next: NextFunction) => {
   logger.info("Method: ", request.method);
   logger.info("Path: ", request.path);
-  logger.info("Body: ", request.body);
   logger.info("---");
   next();
 };
@@ -27,7 +25,7 @@ const tokenExtractor = (request: Request, response: Response, next: NextFunction
 };
 
 const userExtractor = async (request: Request, response: Response, next: NextFunction) => {
-  const decodedToken = jwt.verify(request.token || "", SECRET);
+  const decodedToken = jwt.verify(request.token || "", process.env.SECRET || "");
 
   if (!decodedToken || typeof decodedToken === "string") {
     return next();

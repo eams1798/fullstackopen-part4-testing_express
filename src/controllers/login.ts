@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import express from "express";
 import { Request, Response } from "express";
 import User from "../models/user";
-import { SECRET } from "../utils/config";
 
 const loginRouter = express.Router();
 
@@ -32,7 +31,7 @@ loginRouter.post("/", async (req: Request, res: Response) => {
     id: user._id,
   };
 
-  const token = jwt.sign(userForToken, SECRET);
+  const token = jwt.sign(userForToken, process.env.SECRET || "");
 
   res
     .status(200)
